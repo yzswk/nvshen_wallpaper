@@ -4,11 +4,15 @@ import re
 from ..items import NvshenItem
 from scrapy import Request
 
-page = 23616
+
 class NvshenspiSpider(scrapy.Spider):
     name = 'nvshenspi'
     allowed_domains = ['www.nvshens.com']
-    start_urls = ['https://www.nvshens.com/g/23616/']
+    def __init__(self, p=23616):
+        self.page = int(p)
+        self.start_urls = ['https://www.nvshens.com/g/%d/' % self.page]
+
+
 
     def parse(self, response):
         item = NvshenItem()
@@ -23,12 +27,12 @@ class NvshenspiSpider(scrapy.Spider):
             yield item
 
         next_page = response.xpath('//div[@id="pages"]/a/@href').extract().pop()
-        global page
-        if next_page is not None and next_page != '/g/%d' % page:
+
+        if next_page is not None and next_page != '/g/%d' % self.page:
             next_page = response.urljoin(next_page)
             yield Request(next_page, callback=self.parse, dont_filter=True)
         else:
-            page -= 1
-            next_page = '/g/%d' % page
+            self.page -= 1
+            next_page = '/g/%d' % self.page
             next_page = response.urljoin(next_page)
             yield Request(next_page, callback=self.parse, dont_filter=True)
