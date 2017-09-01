@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'nvshen.spiders'
 #USER_AGENT = 'nvshen (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -89,10 +89,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 IMAGES_STORE = './pic'
-DOWNLOAD_DELAY = 0.4
-DOWNLOAD_TIMEOUT = 15
+# DOWNLOAD_DELAY = 0.3
+DOWNLOAD_TIMEOUT = 100
 RETRY_ENABLED = False
 LOG_LEVEL = 'DEBUG'
 IMAGES_EXPIRES = 90
 IMAGES_MIN_HEIGHT = 800
-IMAGES_MIN_WIDTH = 2000
+IMAGES_MIN_WIDTH = 800
